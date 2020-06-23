@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/teste', 'TesteController');
+Route::resource('/questao', 'QuestaoController');
+

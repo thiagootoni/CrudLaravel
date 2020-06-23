@@ -1,6 +1,7 @@
-<form action="{{route(testes.store)}}" method="POST">
+<form action="{{route('teste.store')}}" method="POST">
+    
     @csrf
-    <input type="hidden" name="idTeste" value="{{old('id'}}" />
+    <input type="hidden" name="idTeste" value="{{old('id')}}" />
 
     <div class="form-group">
         <label for="nome">Nome do Teste</label>
@@ -11,7 +12,7 @@
         <input type="text" name="pontuacaoMinima" id="pontuacaoMinima" value="{{old('pontuacaoMinima')}}" />
     </div>
     <div class="form-group">
-        <input class="btn btn-primary" type="number" name="criarProva" id="criarProva" value="Criar" />
+        <input class="btn btn-primary" type="submit" name="criarProva" id="criarProva" value="Criar" />
     </div>
 </form>
 

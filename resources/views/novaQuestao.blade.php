@@ -1,10 +1,10 @@
-<form action="{{route('questoes.store')}}" method="POST">
+<form action="{{route('questao.store')}}" method="POST">
     @csrf
     <input type="hidden" name="idQuestao" id="idQuestao" value="{{old('id')}}">
 
     <div class="form-group">
         <label for="enunciado">Enunciado</label>
-        <textarea name="enunciado" id="enunciado" cols="30" rows="3" value="{{old('enunciado')}}"></textarea>
+        <textarea name="enunciado" id="enunciado" cols="30" rows="3">{{old('enunciado')}}</textarea>
     </div>
     <div class="form-group">
         <label for="respostaA">Letra A</label>
@@ -42,7 +42,7 @@
         
         <div class="form-group col-md-6">
             <label for="valorDaQuestao">Valor da Questão</label>
-            <input type="number" class="form-control" min="0" name="valorDaquestao" id="valorDaQuestao" value="{{old.valorDaQuestao}}"/>
+            <input type="number" class="form-control" min="0" name="valorDaquestao" id="valorDaQuestao" value="{{old('valorDaQuestao')}}"/>
         </div>
     </div>
 

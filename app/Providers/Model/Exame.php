@@ -56,6 +56,4 @@ class Exame {
         $this->foiRelizado = $foiRelizado;
     }
 
-
-    
 }
