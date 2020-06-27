@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Teste;
+use App\Questao;
 
 class QuestaoController extends Controller
 {
@@ -11,10 +13,11 @@ class QuestaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Teste $teste)
     {
         //
-        return view('novaQuestao');
+        //$questoes = Teste::findOrFail($teste->id)->questoes();
+        //return view('novaQuestao')->withQuestoes($questoes);
     }
 
     /**
@@ -22,9 +25,13 @@ class QuestaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Teste $teste)
     {
-        //
+        $teste = Teste::findOrFail($teste->id);
+        //dd($teste->questoes());
+        $questoes = $teste->questoes;
+        //dd($questoes);
+        return view('questao.novaQuestao')->withQuestoes($questoes)->withTeste($teste);
     }
 
     /**
@@ -33,9 +40,29 @@ class QuestaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Teste $teste)
     {
         //
+        //dd($request);       
+
+        if (empty($request->enunciado) || empty($request->respostaA) || empty($request->respostaB) || empty($request->respostaC) ||
+            empty($request->respostaD) || empty($request->respostaE) || empty($request->respostaCorreta) || empty($request->valorDaQuestao)) {
+            
+            return back()->withInput()->withMensagem("Campos faltantes!"); 
+        }
+
+        $data = $request->all();
+
+        $teste = Teste::findOrFail($teste->id);
+
+        try {
+            $teste->questoes()->create($data);
+        } catch (\Throwable $th) {
+            return back()->withMensagem("Erro ao salvar questão!");
+        }
+
+        return back()->withMensagem("Questão sava com sucesso!");
+        
     }
 
     /**
@@ -55,9 +82,19 @@ class QuestaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Questao $questao, Questao $teste)
     {
         //
+        try {
+            $questao = Questao::findOrFail($questao->id);
+            
+        } catch (\Throwable $th) {
+            return view('questao.editQuestao')->withMensagem('Questão não econtrada');
+        }
+
+        return view('questao.editQuestao')->withQuestao($questao);
+
+        
     }
 
     /**
@@ -67,9 +104,27 @@ class QuestaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $questao)
     {
-        //
+        //dd($questao);
+
+        if (empty($request->enunciado) || empty($request->respostaA) || empty($request->respostaB) || empty($request->respostaC) ||
+            empty($request->respostaD) || empty($request->respostaE) || empty($request->respostaCorreta) || empty($request->valorDaQuestao)) {
+            
+            return back()->withInput()->withMensagem("Campos faltantes!"); 
+        }
+
+        $data = $request->all();
+
+        $questao = Questao::findOrFail($questao);
+
+        try {
+            $questao->update($data);
+        } catch (\Throwable $th) {
+            return back()->withMensagem("Erro ao salvar questão!");
+        }
+
+        return back()->withMensagem("Questão sava com sucesso!");
     }
 
     /**
@@ -78,8 +133,14 @@ class QuestaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Questao $questao, Teste $teste)
     {
         //
+        try {
+            $questao = Questao::findOrFail($questao->id)->delete();
+        } catch (\Throwable $th) {
+            return back()->withMensagem("Falha ao remover questão!");
+        }
+        return back()->withMensagem("Questão removido com sucesso!");
     }
 }

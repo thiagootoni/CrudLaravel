@@ -8,7 +8,6 @@ class Questao extends Model
 {
     //
     protected $fillable = [
-        'id',
         'enunciado',
         'respostaA',
         'respostaB',
@@ -19,4 +18,8 @@ class Questao extends Model
         'valorDaQuestao',
         'teste_id'
     ];
+
+    public function teste(){
+        return $this->belongsTo(Teste::class);
+    }
 }

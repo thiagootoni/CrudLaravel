@@ -8,9 +8,12 @@ class Teste extends Model
 {
     //
     protected $fillable = [
-        'id',
         'nome',
         'pontuacaoMinima',
         'user_criador_id'
     ];
+
+    public function questoes(){
+        return $this->hasMany(Questao::class);
+    }
 }

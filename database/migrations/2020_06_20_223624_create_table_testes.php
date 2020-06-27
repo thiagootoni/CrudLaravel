@@ -17,7 +17,7 @@ class CreateTableTestes extends Migration
             
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('pontuacaoMinina');
+            $table->string('pontuacaoMinima');
             $table->unsignedBigInteger('user_criador_id');
             $table->foreign('user_criador_id')
             ->references('id')
