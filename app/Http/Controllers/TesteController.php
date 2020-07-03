@@ -21,7 +21,8 @@ class TesteController extends Controller
         //Teste::findOrFail();
         //Teste::paginate(10);
         //dd(Teste::paginate(15));
-        return view('welcome')->withTestes(Teste::paginate(10));
+        $id_user = auth()->user()->id;
+        return view('welcome')->withTestes(Teste::where('user_criador_id','!=',$id_user)->paginate(10));
     }
 
     /**
@@ -31,7 +32,8 @@ class TesteController extends Controller
      */
     public function create()
     {
-        $testes = Teste::all();
+        $id_user = auth()->user()->id;
+        $testes = Teste::where('user_criador_id', '=', $id_user)->paginate(10);
         //dd($testes);
         return view('teste.novoTeste')->withTestes($testes);
     }
@@ -53,7 +55,7 @@ class TesteController extends Controller
         }
 
         try {
-            $data['user_criador_id'] = 1;
+            $data['user_criador_id'] = auth()->user()->id;
             //dd($data);
             Teste::create($data);
             
@@ -62,7 +64,7 @@ class TesteController extends Controller
             return back()->withMensagem("Falha ao salvar teste!");
         }
         
-        return back()->withMensagem("Cliente salvo com sucesso!");
+        return back()->withMensagem("Teste salvo com sucesso!");
     }
 
     /**

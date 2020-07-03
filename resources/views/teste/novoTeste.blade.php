@@ -25,7 +25,8 @@
                     <input type="text" name="pontuacaoMinima" class="form-control" value="{{old('pontuacaoMinima')}}" />
                 </div>
                 <div class="form-group col-md-2">
-                    <input class="btn btn-primary form-control align-bottom" type="submit" name="criarProva" value="Criar" />
+                    <label style="color:white;">botao</label>
+                    <input class="btn btn-primary form-control" type="submit" name="criarProva" value="Criar" />
                 </div>    
             </div>    
         </form>
@@ -72,7 +73,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">Nenhum registro econtrado</td>>
+                    <td colspan="4" style="text-align: center;">Nenhum registro econtrado</td>
                 </tr>
             @endforelse
             </tbody>

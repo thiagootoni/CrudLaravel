@@ -29,7 +29,8 @@ class CreateTableExames extends Migration
             ->onDelete('set null');
 
             $table->string('notaFinal');
-            $table->boolean('foiRelizado')->default(false);
+            $table->boolean('foiAprovado')->default(false);
+            $table->boolean('foiRealizado')->default(false);
             $table->timestamps();
         });
     }

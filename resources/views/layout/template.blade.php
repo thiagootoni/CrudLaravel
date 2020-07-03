@@ -12,8 +12,9 @@
     <title>Ishcola21</title>
 </head>
 <body>
+    @auth
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="navbar-nav col-md-11">
+        <div class="navbar-nav col-md-10">
             <a class="navbar-brand" href="#">Ishcola21</a>
             <div>
                 <ul class="navbar-nav mr-auto">
@@ -23,16 +24,23 @@
             </div>
         </div>
         <div class="navbar-nav col-md-1">
-            <a class="navbar-brand" href="#">Logout</a>
+            <a class="nav-item" style="color: white;"><small>{{ auth()->user()->email }}</small></a>
+        </div>
+        <div class="navbar-nav col-md-1">
+            <form action="{{ route('logout') }}" method="POST">
+            @csrf
+                <input class="btn btn-dark" type="submit" name="logout" value="logout"/> 
+            </form>
         </div>
     </nav>
-
+    @endauth
+    
     @if (Session::has('mensagem'))
     <div class="container pt-3 alert alert-warning">
         {{ Session::get('mensagem') }}
     </div>
     @endif
-
+    
     <div class="container pt-3">
         @yield('content')
     </div>

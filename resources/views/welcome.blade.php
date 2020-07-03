@@ -1,9 +1,10 @@
 @extends('layout.template')
 @section('content')
+<h5 style="text-align: center;">Bem-vindo {{ auth()->user()->name }}!</h5>
 <div class="card" style="margin-top: 30px;">
 
     <div class="card-header">
-        <h3>Testes disponíveis</h3>
+        <h3>Testes disponíveis para realização</h3>
     </div>
 
     <div class="card-body">
@@ -18,16 +19,23 @@
             </thead>
             <tbody>
                 <!--forelse-->
+                @forelse($testes as $teste)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{$teste->nome}}</td>
+                    <td>{{$teste->pontuacaoMinima}}</td>
+                    <td>{{$teste->user->name}}</td>
                     <td>
-                        <a class="btn btn-outline-danger btn-sm" href="#">Realizar</a>
+                        <a class="btn btn-outline-danger btn-sm" href="{{ route ('exame.show', ['teste' => $teste->id ]) }}">Realizar</a>
                     </td>
                 </tr>
+                @empty
+                <tr>
+                <td colspan="4" style="text-align: center;">Nenhum registro econtrado</td>
+                </tr>
+            @endforelse
             </tbody>
-        </table>            
+        </table>
+        {{$testes->links()}}            
     </div>
 
 </div>

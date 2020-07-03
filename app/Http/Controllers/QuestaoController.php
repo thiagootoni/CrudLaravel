@@ -73,7 +73,7 @@ class QuestaoController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -82,9 +82,10 @@ class QuestaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Questao $questao, Questao $teste)
+    public function edit( Teste $teste, Questao $questao)
     {
         //
+        //dd($questao);
         try {
             $questao = Questao::findOrFail($questao->id);
             
@@ -133,7 +134,7 @@ class QuestaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Questao $questao, Teste $teste)
+    public function destroy(Teste $teste,Questao $questao)
     {
         //
         try {
@@ -141,6 +142,6 @@ class QuestaoController extends Controller
         } catch (\Throwable $th) {
             return back()->withMensagem("Falha ao remover questão!");
         }
-        return back()->withMensagem("Questão removido com sucesso!");
+        return back()->withMensagem("Questão removida com sucesso!");
     }
 }

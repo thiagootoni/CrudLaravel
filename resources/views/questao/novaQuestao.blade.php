@@ -22,10 +22,12 @@
                     <td>{{$questao->respostaCorreta}}</td>
                     <td>{{$questao->valorDaQuestao}}</td>
                     <td>
-                        <a class="btn btn-outline-danger btn-sm" href="{{route('questao.edit', ['questao' => $questao->id,'teste' => $questao->teste_id])}}">Editar</a>
+                        <a class="btn btn-outline-danger btn-sm" href="{{route('questao.edit', ['teste' => $questao->teste_id, 'questao' => $questao->id])}}">Editar</a>
                     </td>
                     <td>
-                        <form action="{{route('questao.destroy', ['questao' => $questao->id,'teste' => $questao->teste_id])}}" method="post">
+                        <form action="{{ route('questao.destroy', ['teste' => $questao->teste_id, 'questao' => $questao->id])}}" method="post">
+                        @csrf
+                        @method('DELETE') 
                             <div class="form-group">
                                 <input class="btn btn-outline-danger btn-sm" type="submit" name="deletarQuestao" id="delete" value="Apagar Questão" />
                             </div>
